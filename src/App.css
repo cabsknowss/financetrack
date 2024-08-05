@@ -2,21 +2,22 @@
   #CSS VARIABLES
 \* -------------------------------------------------- */
 :root {
-  --clr-primary-400: hsl(0, 0%, 12%);
-  --clr-primary-400-blur: hsla(0, 0%, 12%, 0.8);
+  --clr-primary-400: hsl(236, 29%, 20%);
 
-  --clr-secondary-400: hsl(199, 87%, 78%);
-  --clr-secondary-300: hsl(174, 62%, 82%);
+  --clr-secondary-400: hsl(234, 33%, 25%);
 
-  --clr-accent-400: hsl(221, 90%, 88%);
-  --clr-accent-300: hsl(288, 92%, 90%);
+  --clr-accent-700: hsl(39, 96%, 70%);
+  --clr-accent-400: hsl(41, 94%, 80%);
 
   --clr-neutral-100: hsl(0, 0%, 100%);
-  --clr-neutral-300: hsl(0, 0%, 97%);
-  --clr-neutral-400: hsl(0, 0%, 90%);
+  --clr-neutral-400: hsl(218, 31%, 95%);
   --clr-neutral-900: hsl(232, 12%, 13%);
 
-  --ff-sans: "Be Vietnam Pro", "Inter", "Helvetica", sans-serif;
+  --clr-success-400: #88c459;
+  --clr-error-400: #f5414f;
+  --clr-warning-400: #ffd137;
+
+  --ff-sans: "Helvetica", sans-serif;
   --ff-serif: "Georgia", "Times New Roman", serif;
   --ff-mono: "Courier New", "Roboto Mono", monospace;
 
@@ -54,9 +55,9 @@
 
 @media (min-width: 50em) {
   :root {
-    --fs-primary-heading: var(--fs-800);
-    --fs-secondary-heading: var(--fs-700);
-    --fs-subheading: var(--fs-600);
+    --fs-primary-heading: var(--fs-700);
+    --fs-secondary-heading: var(--fs-600);
+    --fs-subheading: var(--fs-500);
   }
 }
 
@@ -98,6 +99,11 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
+a {
+  text-decoration: none;
+  font: inherit;
+}
+
 img,
 svg,
 video,
@@ -120,6 +126,9 @@ picture {
 }
 .text-neutral-100 {
   color: var(--clr-neutral-100);
+}
+.text-neutral-400 {
+  color: var(--clr-neutral-400);
 }
 .text-neutral-900 {
   color: var(--clr-neutral-900);
@@ -187,6 +196,9 @@ picture {
   padding-block: var(--size-400);
 }
 
+.padding-top-400 {
+  padding-top: var(--size-400);
+}
 .padding-bottom-400 {
   padding-bottom: var(--size-400);
 }
@@ -207,6 +219,10 @@ picture {
   text-align: center;
 }
 
+.margin-auto {
+  margin: auto;
+}
+
 .flex-center {
   display: flex;
   justify-content: center;
@@ -214,14 +230,20 @@ picture {
 }
 
 /* -------------------------------------------------- *\
-  #GENERAL STYLING
+  #CSS LAYOUT / GENERAL STYLING
 \* -------------------------------------------------- */
-.app {
+body {
+  font-family: var(--ff-serif);
+  font-weight: var(--fw-regular);
+  color: var(--clr-neutral-400);
+}
+
+.container {
   height: 100vh;
   /* overflow: hidden; */
 
   display: grid;
-  grid-template-columns: 20rem 1fr;
+  grid-template-columns: 14rem 1fr;
 }
 
 /* ||******************** Sidebar ********************|| */
@@ -229,10 +251,20 @@ picture {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
+
+  padding: var(--size-500) var(--size-400);
 }
 
-.sidebar-lists {
-  margin-bottom: 100%;
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-nav {
+  margin-top: var(--size-700);
+  width: 100%;
 }
 
 .sidebar-list {
@@ -241,12 +273,24 @@ picture {
   align-items: center;
   cursor: pointer;
 
-  padding: var(--size-500);
-  margin-block: var(--size-400);
+  padding: var(--size-400) var(--size-900) var(--size-400) var(--size-400);
+  margin-top: var(--size-400);
+  font-size: var(--fs-200);
+  border-radius: var(--size-200);
 }
 
 .sidebar-list:is(:focus, :hover) {
-  background-color: #880015;
+  background-color: var(--clr-accent-400);
+  color: var(--clr-neutral-900);
+}
+
+.sidebar-setting {
+  cursor: pointer;
+}
+
+.sidebar-setting:hover {
+  /* background-color: var(--clr-accent-400); */
+  color: var(--clr-accent-400);
 }
 
 /* ||******************** Content ********************|| */
@@ -271,20 +315,25 @@ picture {
 .content-header__title {
   display: flex;
   align-items: center;
+  gap: var(--size-200);
 }
 
 /* ||Dashboard */
 .dashboard {
+  height: 100%;
   display: grid;
+  gap: var(--size-400);
   grid-template-areas:
     "income analytics analytics"
     "expense analytics analytics"
     "datatable datatable reflect"
     "datatable datatable reflect";
+  grid-auto-columns: 1fr;
 }
 
 .dashboard > * {
-  background-color: white;
+  background-color: var(--clr-secondary-400);
+  border-radius: var(--size-400);
 }
 
 .dashboard-income {
@@ -303,6 +352,42 @@ picture {
   grid-area: reflect;
 }
 
-/* ||Inputs */
+/* ||Transaction */
+.transaction {
+  height: 100%;
+  display: grid;
+  gap: var(--size-400);
+  grid-template-areas: "input table table table";
+}
+
+.transaction > * {
+  background-color: var(--clr-secondary-400);
+  border-radius: var(--size-400);
+}
+
+.transaction-input {
+  grid-area: input;
+}
+.transaction-table {
+  grid-area: table;
+}
 
 /* ||Tracker */
+.tracker {
+  height: 100%;
+  display: grid;
+  gap: var(--size-400);
+  grid-template-areas: "overview analytics";
+}
+
+.tracker > * {
+  background-color: var(--clr-secondary-400);
+  border-radius: var(--size-400);
+}
+
+.tracker-overview {
+  grid-area: overview;
+}
+.tracker-analytics {
+  grid-area: analytics;
+}

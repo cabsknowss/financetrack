@@ -7,7 +7,7 @@ const App = () => {
   const [activeModal, setActiveModal] = useState("Dashboard");
 
   return (
-    <div className="app bg-accent-400">
+    <div className="container">
       <Sidebar setActiveModal={setActiveModal} />
       <Content activeModal={activeModal} />
     </div>

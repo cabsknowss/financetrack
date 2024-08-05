@@ -1,7 +1,12 @@
 import React from "react";
 
 const Tracker = () => {
-  return <div>Tracker</div>;
+  return (
+    <div className="tracker">
+      <div className="tracker-overview"></div>
+      <div className="tracker-analytics"></div>
+    </div>
+  );
 };
 
 export default Tracker;
